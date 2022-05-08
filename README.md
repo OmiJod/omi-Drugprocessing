@@ -1,5 +1,8 @@
-# qb-drugprocessing
+# QB-drugprocessing
 A QBCore Drug Processing Script Which Uses QB-target and Not Drawtext <3
+
+# Preview
+- https://youtu.be/vBwbbqZH8cw
 
 
 # Config
