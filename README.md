@@ -10,12 +10,7 @@ A QBCore Drug Processing Script Which Uses QB-target and Not Drawtext <3
 1) Drag And Drop Into Qb Folder 
 2) Change The Following Things 
 
-- Drug Item You want To Process From 
-server.lua > Line 11,12,36
-client.lua > Line 43
-
-- Drug Item You want To Get When You Process From
-server.lua > Line 24,25
+- Check Server Side For The Config
 
 3) Change The Box Zone If You want 
 
