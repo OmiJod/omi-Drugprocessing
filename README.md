@@ -2,7 +2,7 @@
 A QBCore Drug Processing Script Which Uses QB-target and Not Drawtext <3
 
 
-#Config
+# Config
 
 1) Drag And Drop Into Qb Folder 
 2) Change The Following Things 
@@ -11,16 +11,17 @@ A QBCore Drug Processing Script Which Uses QB-target and Not Drawtext <3
 server.lua > Line 11,12,36
 client.lua > Line 43
 
-# Drug Item You want To Get When You Process From
-server.lua ? Lune 24,25
+- Drug Item You want To Get When You Process From
+server.lua > Line 24,25
+
 3) Change The Box Zone If You want 
 
-#Please Note 
+# Please Note 
 1) You must have The Item In Your Pockets In Order To Process
 2) The Moment You Hit The Trigger The Item is Gone and When The Progess Bar is Finished You Get The Processed item
 3) Both The Items Must Be In qbcore > Shared ? items.lua
 
-#Images 
+# Images 
 
 1) Table In This Script -  
 ![image](https://user-images.githubusercontent.com/69292814/167305538-43776320-06f8-42ba-8ba7-59be99589ef9.png)
