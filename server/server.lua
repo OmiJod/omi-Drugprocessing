@@ -1,44 +1,32 @@
-local QBCore = exports['qb-core']:GetCoreObject() 
+local QBCore = exports["qb-core"]:GetCoreObject()
+local Config = {
+	ItemToGive = "cokebaggy", -- Item to give after the proccess
+	ItemToTake = "coke_brick", -- Item to take before
+	Coords = vector3(2430.88, 4971.21, 42.35), -- Coords
+}
 
--- Removes The Commodity You want  The Moment You Trigger The Event So That There are No Duplicting Glitch
+QBCore.Functions.CreateCallback("qb-drug:server:getConfig", function(source, cb)
+	cb(Config)
+end)
 
-RegisterServerEvent("drug:removebrick")
-AddEventHandler("drug:removebrick", function(x,y,z)
-  	local src = source
-  	local Player = QBCore.Functions.GetPlayer(src)
+-- Adds The After Process Product You want After The Progress BAr Is Finished
 
-		if 	TriggerClientEvent("QBCore:Notify", src, "Making Drug Bags", "success", 8000) then 
-			Player.Functions.RemoveItem('coke_brick', 1)  -- Change Me To what Ever You wanna Process
-			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_brick'], "remove")   -- Change Me To what Ever You wanna Process
-		end
-	end)
-
--- Adds The After Process Product You want After The Progress BAr Is Finished 
-
-RegisterServerEvent("drug:addbaggies")
-AddEventHandler("drug:addbaggies", function(x,y,z)
-          local src = source
-          local Player = QBCore.Functions.GetPlayer(src)
-    
-            if 	TriggerClientEvent("QBCore:Notify", src, "Making Drug Bags", "success", 8000) then
-                Player.Functions.AddItem('cokebaggy', 8) -- Change Me To what Ever You want as The Out Come
-                TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['cokebaggy'], "add") -- Change Me To what Ever You want as The Out Come
-            end
-        end)
-
-QBCore.Functions.CreateCallback('drug:process', function(source, cb)
+RegisterServerEvent("drug:addbaggies", function()
 	local src = source
+	local ped = GetPlayerPed(src)
 	local Player = QBCore.Functions.GetPlayer(src)
-	 
-	if Player.PlayerData.item ~= nil and next(Player.PlayerData.items) ~= nil then
-		for k, v in pairs(Player.PlayerData.items) do
-		    if Player.Playerdata.items[k] ~= nil then
-				if Player.Playerdata.items[k].name == "coke_brick" then  -- Change Me Too
-					cb(true)
-			    else
-					cb(false)
-				end
-	        end
-		end	
+	local Coords = GetEntityCoords(ped)
+
+	if #(Config.Coords - Coords) < 3 then -- lets check here if the player is close to the place
+		TriggerEvent("drug:overallproccess", Player)
+		if Player.Functions.GetItemByName(Config.ItemToTake) ~= nil then -- lets check if the player has the item
+			Player.Functions.RemoveItem(Config.ItemToTake, 1) -- Lets take the item
+			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[Config.ItemToTake], "remove")
+			TriggerClientEvent("QBCore:Notify", src, "Making Drug Bags", "success", 8000)
+			Player.Functions.AddItem(Config.ItemToGive, 8) -- Lets give the item
+			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[Config.ItemToGive], "add") -- Lets give the item
+		end
+	else
+		DropPlayer(src, "Trying to exploit resource: " .. GetCurrentResourceName())
 	end
 end)
