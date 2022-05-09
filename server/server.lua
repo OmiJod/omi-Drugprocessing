@@ -25,8 +25,10 @@ RegisterServerEvent("drug:addbaggies", function()
 			TriggerClientEvent("QBCore:Notify", src, "Making Drug Bags", "success", 8000)
 			Player.Functions.AddItem(Config.ItemToGive, 8) -- Lets give the item
 			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[Config.ItemToGive], "add") -- Lets give the item
+			TriggerEvent("qb-log:server:CreateLog","default",GetCurrentResourceName(),"default","Drug started by "..Player.PlayerData.citizenid)
 		end
 	else
+		TriggerEvent("qb-log:server:CreateLog","anticheat",GetCurrentResourceName(),"red","Player: "..Player.PlayerData.citizenid.." tried to exploit resource: "..GetCurrentResourceName())
 		DropPlayer(src, "Trying to exploit resource: " .. GetCurrentResourceName())
 	end
 end)
