@@ -1,4 +1,5 @@
 fx_version 'cerulean'
+Version '1.1.0'
 Author 'JericoFX & Omi'
 game 'gta5'
 
